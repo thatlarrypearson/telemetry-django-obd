@@ -1,0 +1,8 @@
+graft telemetry_django_obd
+graft telemetry_django_obd/management/commands
+graft telemetry_django_obd/templates
+graft telemetry_django_obd/*.py
+graft telemetry_django_obd/management/commands/*.py
+graft telemetry_django_obd/templates/*.html
+prune media
+global-exclude *.py[co]
