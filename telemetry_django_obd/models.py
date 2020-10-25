@@ -65,7 +65,7 @@ class Vehicle(models.Model):
     is_gas = models.BooleanField(default=False, verbose_name='Is Gas')
     is_diesel = models.BooleanField(default=False, verbose_name='Is Diesel')
     is_turbocharged = models.BooleanField(default=False, verbose_name='Is Turbocharged')
-    displacement = models.CharField(default='', blank=True, verbose_name='Displacement', max_length=512)
+    displacement = models.CharField(default='', blank=True, verbose_name='Displacement', max_length=64)
     transmission_gears = models.IntegerField(default=0, verbose_name='Transmission Gears')
 
     def __str__(self):
@@ -81,7 +81,7 @@ class Vehicle(models.Model):
 class EcuDataFile(models.Model):
     id = models.BigAutoField(primary_key=True, db_index=True)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.PROTECT, verbose_name='Vehicle')
-    file_name = models.CharField(unique=True, db_index=True, verbose_name='File Name', max_length=4096)
+    file_name = models.CharField(unique=True, db_index=True, verbose_name='File Name', max_length=512)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Created')
     modified = models.DateTimeField(auto_now=True, verbose_name='Modified')
     is_zipped = models.BooleanField(default=False, verbose_name='Is Zipped')
@@ -132,7 +132,7 @@ class EcuCommandStats(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['vehicle', 'command_name', ], name='vehicle_command_name_ecu_command_stats'
+                fields=['vehicle', 'command_name', ], name='v_cmd_name_ecu_cmd_stats'
             ),
         ]
         verbose_name_plural = 'ECU Command Stats'
